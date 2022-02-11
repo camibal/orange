@@ -29,6 +29,7 @@ if ($tipo == 'consulta') {
 
 if ($tipo == 'guardar') {
    if ($cuentasCobro->postCuentasCobro($nombre, $ciudad, $fecha, $cedula, $valor, $concepto, $celular, $formaspago)) {
+      $cuentasCobro->postConsecutivo($cedula);
       echo 'Se guardo';
    } else {
       echo 'No se guardo';
@@ -54,8 +55,8 @@ if ($tipo == 'editar') {
 if ($tipo == 'detalle') {
    $resultado = $cuentasCobro->consultaDetalles($id);
    if ($resultado) {
-       echo json_encode($resultado); //imprime el json
+      echo json_encode($resultado); //imprime el json
    } else {
-       return 'No se consulto';
+      return 'No se consulto';
    }
 }

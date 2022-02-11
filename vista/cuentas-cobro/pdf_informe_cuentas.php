@@ -7,10 +7,10 @@ $cadena = '
 	       <link rel="stylesheet" type="text/css" href="../../librerias/bootstrap/css/bootstrap.min.css" />
          <style>
          h4{
-           font-size: 2rem;
+           font-size: 1.5rem;
          }
          p{
-           font-size: 1.5rem;
+           font-size: 1.2rem;
            font-weight: 500;
          }
          .mt-3{
@@ -21,15 +21,12 @@ $cadena = '
          }
          .font-weight-bold{
            font-weight: bold;
-         }
-         .section1{
-           padding-bottom: 15rem;
-         }
+         }  
          .section2{
-           padding-top: 10rem;
+           padding-top: 6rem;
          }
          .text-dark{
-          color: #5a5c69!important;
+          color: #000!important;
          }
          </style>
     </head>
@@ -42,6 +39,9 @@ $tipo = $_GET['tipo'];
 $id = $_GET['id'];
 $fech = $_GET['fecha'];
 $valorPagar = $_GET['valorPagar'];
+$valorPagarNumber = $_GET['valorPagarNumber'];
+$consecutivo = $_GET['consecutivo'];
+
 if ($tipo == 'informe_cuentas') {
   //Instancia del informes
   $informes = new CuentasCobro();
@@ -52,9 +52,9 @@ if ($tipo == 'informe_cuentas') {
     $contador = 0;
     // $cadena = sizeof($listaEnvios);
     for ($i = 0; $i < sizeof($listaEnvios); $i++) {
-      $cadena .= '<div class="text-center section1">';
+      $cadena .= '<div class="text-center">';
       $cadena .= '<p class="text-dark font-weight-bold pl-5" style="float: left;">' . $listaEnvios[$i]["ciudad"] . ' ' . $fech . '</p>';
-      $cadena .= '<p class="text-dark font-weight-bold pr-5" style="float: right;">Cuenta de cobro N°' . $listaEnvios[$i]["id"] . '</p>';
+      $cadena .= '<p class="text-dark font-weight-bold pr-5" style="float: right;">Cuenta de cobro N°' . $consecutivo . '</p>';
       $cadena .= '</div>';
       $cadena .= '<div class="d-flex flex-column text-center mt-5 section2">';
       $cadena .= '<h4 class="text-dark font-weight-bold section2">KRONOS SOLUCIONES TIC SAS</h4>';
@@ -64,7 +64,7 @@ if ($tipo == 'informe_cuentas') {
       $cadena .= '<p class="text-dark"><span class="font-weight-bold">CC:</span> ' . $listaEnvios[$i]["cedula"] . '</p>';
       $cadena .= '<h4 class="text-dark font-weight-bold mt-2">LA SUMA DE:</h4>';
 
-      $cadena .= '<p class="text-dark">$' . $listaEnvios[$i]["valor"] . ' ' . '(' . $valorPagar . ' pesos)' . '</p>';
+      $cadena .= '<p class="text-dark">' . $valorPagarNumber . ' ' . '(' . $valorPagar . ' pesos)' . '</p>';
       
       $cadena .= '<h4 class="text-dark font-weight-bold mt-2">POR CONCEPTO DE:</h4>';
       $cadena .= '<p class="text-dark">' . $listaEnvios[$i]["concepto"] . '</p>';

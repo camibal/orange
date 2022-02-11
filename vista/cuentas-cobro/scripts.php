@@ -40,6 +40,15 @@
 	// 
 
 	$("#btn_crear_cliente").click(function() {
+		let date = new Date()
+		let day = date.getDate()
+		let month = date.getMonth() + 1
+		let year = date.getFullYear()
+		if (month < 10) {
+			$("#fecha_cuentas_cobro").attr("value", `${year}-0${month}-${day}`);
+		} else {
+			$("#fecha_cuentas_cobro").attr("value", `${year}-${month}-${day}`);
+		}
 		$("#modalContactoLabel").text("Crear cuenta de cobro");
 		$("#btn_crear_cuenta_cobro").attr("data-accion", "crear");
 		$("#form_contacto")[0].reset();
@@ -83,7 +92,6 @@
 				$("#btn_guardando").addClass("d-none");
 				alertify.success(data)
 				setTimeout('cargar_sitio()', 1000);
-				// alert(data)
 			},
 			error: function(data) {
 				//Cuando la interacción retorne un error, se ejecutará esto.
@@ -189,8 +197,16 @@
 			})
 			.done(function(data) {
 				$.each(data[0], function(key, value) {
-					console.log(key + "--" + value);
+					let date = new Date()
+					let day = date.getDate()
+					let month = date.getMonth() + 1
+					let year = date.getFullYear()
 					$("#" + key + "_cuentas_cobro").val(value);
+					if (month < 10) {
+						$("#fecha_cuentas_cobro").val(`${year}-0${month}-${day}`);
+					} else {
+						$("#fecha_cuentas_cobro").val(`${year}-${month}-${day}`);
+					}
 				});
 				id = data.id;
 			})
@@ -231,22 +247,25 @@
 					// dias de la semana en español
 					const dias_semana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 					// traducir y almacenar
-					var fecha = mydate.getDate() + ' de ' + meses[mydate.getMonth()] + ' de ' + mydate.getUTCFullYear()
-					var text = elem["valor"];
-					var integer = parseInt(text, 10);
+					let fecha = mydate.getDate() + ' de ' + meses[mydate.getMonth()] + ' de ' + mydate.getUTCFullYear()
+					let text = elem["valor"];
+					let integer = parseInt(text, 10);
 					// set localStorage
 					localStorage.setItem("idCliente", elem["id"]);
 					localStorage.setItem("fecha", fecha);
+					localStorage.setItem("valorPagarNumber", formatter.format(integer));
 					localStorage.setItem("valorPagar", toWords(integer));
+					localStorage.setItem("consecutivo", elem["id_consecutivo"]);
 					// contenido de los detalles
 					contenido += '<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" />';
+					contenido += '<style>body{text-align:center;}</style>';
 					contenido += '<div class="container bg-white w-100 h-100 p-5 text-center">';
 					contenido += '<div class="row justify-content-center">';
 					contenido += '<div class="col-6 d-flex justify-content-center">';
 					contenido += '<p class="text-dark font-weight-bold">' + elem["ciudad"] + '' + ' ' + '' + fecha + '</p>';
 					contenido += '</div>';
 					contenido += '<div class="col-6 d-flex justify-content-center">';
-					contenido += '<p class="text-dark font-weight-bold">Cuenta de cobro N°' + elem["id"] + '</p>';
+					contenido += '<p class="text-dark font-weight-bold">Cuenta de cobro N°' + elem["id_consecutivo"] + '</p>';
 					contenido += '</div>';
 					contenido += '<div class="d-flex flex-column text-center mt-5">';
 					contenido += '<h4 class="text-dark font-weight-bold">KRONOS SOLUCIONES TIC SAS</h4>';
@@ -255,7 +274,7 @@
 					contenido += '<p class="text-dark">' + elem["nombre"] + '</p>';
 					contenido += '<p class="text-dark">CC: ' + elem["cedula"] + '</p>';
 					contenido += '<h4 class="text-dark font-weight-bold mt-2">LA SUMA DE:</h4>';
-					contenido += '<p class="text-dark" id="result">$' + elem["valor"] + ' ' + '(' + toWords(integer) + 'pesos)' + '</p>';
+					contenido += '<p class="text-dark" id="result">' + formatter.format(integer) + ' ' + '(' + toWords(integer) + 'pesos)' + '</p>';
 					contenido += '<h4 class="text-dark font-weight-bold mt-2">POR CONCEPTO DE:</h4>';
 					contenido += '<p class="text-dark">' + elem["concepto"] + '</p>';
 					contenido += '<p class="mt-3 text-dark"><strong>' + elem["nombre"] + '</strong></p>';
@@ -280,17 +299,24 @@
 				$("#contenidoEnvio").html('No existen cuentas de cobro.');
 			})
 			.always(function(data) {
-				console.log(data);
+				// console.log(data);
 			});
 	}
 
+	// convertir int en pesos colombianos
+	const formatter = new Intl.NumberFormat('es-CO', {
+		style: 'currency',
+		currency: 'COP',
+		minimumFractionDigits: 0
+	})
 
-	var th = ['', 'mil', 'millon', 'billon', 'trillon'];
-	var dg = ['cero', 'un', 'dos', 'tres', 'cuatro', 'sinco', 'seis', 'siete', 'ocho', 'nueve'];
-	var tn = ['diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
-	var tw = ['veinte', 'treinta', 'curenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
 
 	function toWords(s) {
+		var th = ['', 'mil', 'millones', 'billones', 'trillones'];
+		var dg = ['cero', 'un', 'dos', 'tres', 'cuatro', 'sinco', 'seis', 'siete', 'ocho', 'nueve'];
+		var tn = ['diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
+		var tw = ['veinte', 'treinta', 'curenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+
 		s = s.toString();
 		s = s.replace(/[\, ]/g, '');
 		if (s != parseFloat(s)) return 'not a number';
@@ -312,7 +338,7 @@
 				}
 			} else if (n[i] != 0) {
 				str += dg[n[i]] + ' ';
-				if ((x - i) % 3 == 0) str += 'cientos';
+				if ((x - i) % 3 == 0) str += 'cientos ';
 				sk = 1;
 			}
 			if ((x - i) % 3 == 1) {
@@ -354,14 +380,18 @@
 		id_cuentas = localStorage.getItem("idCliente");
 		fech = localStorage.getItem("fecha");
 		valorPagar = localStorage.getItem("valorPagar");
-		window.location = "cuentas-cobro/word_informe_cuentas.php?tipo=informe_cuentas&id=" + id_cuentas + "&fecha=" + fech + "&valorPagar=" + valorPagar;
+		valorPagarNumber = localStorage.getItem("valorPagarNumber");
+		consecutivo = localStorage.getItem("consecutivo");
+		window.location = "cuentas-cobro/word_informe_cuentas.php?tipo=informe_cuentas&id=" + id_cuentas + "&fecha=" + fech + "&valorPagar=" + valorPagar + "&valorPagarNumber=" + valorPagarNumber + "&consecutivo=" + consecutivo;
 	});
 
 	$("#btn_pdf_devoluciones").click(function() {
 		id_cuentas = localStorage.getItem("idCliente");
 		fech = localStorage.getItem("fecha");
 		valorPagar = localStorage.getItem("valorPagar");
-		window.location = "cuentas-cobro/pdf_informe_cuentas.php?tipo=informe_cuentas&id=" + id_cuentas + "&fecha=" + fech + "&valorPagar=" + valorPagar;
+		valorPagarNumber = localStorage.getItem("valorPagarNumber");
+		consecutivo = localStorage.getItem("consecutivo");
+		window.location = "cuentas-cobro/pdf_informe_cuentas.php?tipo=informe_cuentas&id=" + id_cuentas + "&fecha=" + fech + "&valorPagar=" + valorPagar + "&valorPagarNumber=" + valorPagarNumber + "&consecutivo=" + consecutivo;
 	});
 
 	//Valida campos de cliente

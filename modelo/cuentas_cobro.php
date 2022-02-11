@@ -17,7 +17,7 @@ class CuentasCobro
     //Trae todas las cuentas de cobro
     public function getCuentasCobro($permisosConsulta)
     {
-        $query = "SELECT * FROM cuentas_cobro WHERE estado = 1";
+        $query = "SELECT id, ciudad, fecha, nombre, cedula, valor, concepto, celular, formas_pago, estado FROM cuentas_cobro WHERE estado = 1";
         $result = mysqli_query($this->link, $query);
         $data   = array();
         while ($data[] = mysqli_fetch_assoc($result));
@@ -28,7 +28,7 @@ class CuentasCobro
     //Trae todos los permisos
     public function getPermisos($id_usuario, $id_modulo)
     {
-        $query = "SELECT * FROM permisos
+        $query = "SELECT id_permisos,fkID_usuario,fkID_modulo,crear,editar,consultar,eliminar,ver  FROM permisos
                 WHERE fkID_usuario ='" . $id_usuario . "' and fkID_modulo ='" . $id_modulo . "'";
         $result = mysqli_query($this->link, $query);
         $data   = array();
@@ -38,11 +38,9 @@ class CuentasCobro
     }
 
     //Trae todos los permisos
-    public function getPermisosconsulta($id_usuario)
+    public function getPermisosconsulta($permisosConsulta)
     {
-        $query = "SELECT * FROM usuario
-                INNER JOIN permisos on permisos.fkID_usuario = usuario.id_usuario
-                WHERE usuario.id_usuario='" . $id_usuario . "'";
+        $query = "SELECT id_consecutivo, fkCEDULA FROM consecutivo";
         $result = mysqli_query($this->link, $query);
         $data   = array();
         while ($data[] = mysqli_fetch_assoc($result));
@@ -53,7 +51,7 @@ class CuentasCobro
     //Consultar cuenta de cobro
     public function consultaCliente($id)
     {
-        $query = "SELECT * FROM cuentas_cobro WHERE id = '" . $id . "'";
+        $query = "SELECT id, ciudad, fecha, nombre, cedula, valor, concepto, celular, formas_pago, estado FROM cuentas_cobro WHERE id = '" . $id . "'";
         $result = mysqli_query($this->link, $query);
         $data   = array();
         while ($data[] = mysqli_fetch_assoc($result));
@@ -64,13 +62,24 @@ class CuentasCobro
     //Consultar detalle del envio
     public function consultaDetalles($id)
     {
-        $query = "SELECT id, ciudad, fecha, nombre, cedula, valor, concepto, celular, formas_pago FROM cuentas_cobro
-                    WHERE id = '" . $id . "'";
+        $query = "SELECT id, id_consecutivo, ciudad, fecha, nombre, cedula, valor, concepto, celular, formas_pago FROM cuentas_cobro
+        INNER JOIN consecutivo on consecutivo.id_consecutivo = cuentas_cobro.id WHERE id = $id";
         $result = mysqli_query($this->link, $query);
         $data   = array();
         while ($data[] = mysqli_fetch_assoc($result));
         array_pop($data);
         return $data;
+    }
+    // Gusrdar cuenta de cobro
+    public function postConsecutivo($cedula)
+    {
+        $query  = "INSERT INTO consecutivo (fkCEDULA,estadoConsecutivo) VALUES ('" . $cedula . "','" . 1 . "')";
+        $result = mysqli_query($this->link, $query);
+        if (mysqli_affected_rows($this->link) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function postCuentasCobro($nombre, $ciudad, $fecha, $cedula, $valor, $concepto, $celular, $formaspago)

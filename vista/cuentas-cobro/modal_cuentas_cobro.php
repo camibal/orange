@@ -40,7 +40,7 @@
           <div class="form-group row">
             <label for="fecha_cuentas_cobro" class="col-sm-3 col-form-label">Fecha:</label>
             <div class="col-sm-7">
-              <input type="date" class="form-control" id="fecha_cuentas_cobro" required="true" style="text-transform:uppercase;">
+              <input type="text" class="form-control" id="fecha_cuentas_cobro" required="true" style="text-transform:uppercase;" disabled>
             </div>
             <div class="col-sm-2 text-danger">
               *
@@ -85,7 +85,7 @@
           <div class="form-group row">
             <label for="formaspago_cuentas_cobro" class="col-sm-3 col-form-label">Forma de pago:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" minlength="5" maxlength="50" id="formas_pago_cuentas_cobro" required="true" style="text-transform:uppercase;">
+              <input type="text" class="form-control" minlength="5" maxlength="150" id="formas_pago_cuentas_cobro" required="true" style="text-transform:uppercase;">
             </div>
             <div class="col-sm-2 text-danger">
               *

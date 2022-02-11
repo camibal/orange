@@ -27,7 +27,7 @@ class cuentasCobroController extends cuentasCobro
                     echo '<td data-id-cuentas="' . $listaIngresos[$i]["id"] . '">' . $listaIngresos[$i]["ciudad"] . '</td>';
                     echo '<td data-id-cuentas="' . $listaIngresos[$i]["id"] . '">' . $listaIngresos[$i]["fecha"] . '</td>';
                     echo '<td data-id-cuentas="' . $listaIngresos[$i]["id"] . '">' . $listaIngresos[$i]["cedula"] . '</td>';
-                    echo '<td data-id-cuentas="' . $listaIngresos[$i]["id"] . '">' . $listaIngresos[$i]["valor"] . '</td>';
+                    echo '<td data-id-cuentas="' . $listaIngresos[$i]["id"] . '">$' . $listaIngresos[$i]["valor"] . '</td>';
                     echo '<td data-id-cuentas="' . $listaIngresos[$i]["id"] . '">' . $listaIngresos[$i]["concepto"] . '</td>';
                     echo '<td data-id-cuentas="' . $listaIngresos[$i]["id"] . '">' . $listaIngresos[$i]["celular"] . '</td>';
                     echo '<td data-id-cuentas="' . $listaIngresos[$i]["id"] . '">' . $listaIngresos[$i]["formas_pago"] . '</td>';
