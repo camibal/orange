@@ -59,4 +59,21 @@ class cuentasCobroController extends cuentasCobro
             echo '</tr>';
         }
     }
+    //Tabla de cuentas de cobro
+    public function getCiudades()
+    {
+        //Instancia del contacto
+        $contacto = new cuentasCobro();
+        $resultado = $contacto->consultaCiudades();
+
+        if (isset($resultado)) {
+            echo '<select name="ciudad" class="form-control" id="ciudad_cuentas_cobro">';
+            for ($i = 0; $i < sizeof($resultado); $i++) {
+                echo '<option value="' . $resultado[$i]["nombre"] . '">' . $resultado[$i]["nombre"] . '</option>';
+            }
+        } else {
+            echo '<option value=">No existen ciudades" colspan="9">No existen ciudades</option>';
+        }
+        echo '</select>';
+    }
 }

@@ -59,6 +59,17 @@ class CuentasCobro
         return $data;
     }
 
+    //Consultar cuenta de cobro
+    public function consultaCiudades()
+    {
+        $query = "SELECT id_municipio, nombre FROM municipios ORDER BY nombre";
+        $result = mysqli_query($this->link, $query);
+        $data   = array();
+        while ($data[] = mysqli_fetch_assoc($result));
+        array_pop($data);
+        return $data;
+    }
+
     //Consultar detalle del envio
     public function consultaDetalles($id)
     {

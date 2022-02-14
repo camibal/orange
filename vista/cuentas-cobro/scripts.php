@@ -51,7 +51,7 @@
 		}
 		$("#modalContactoLabel").text("Crear cuenta de cobro");
 		$("#btn_crear_cuenta_cobro").attr("data-accion", "crear");
-		$("#form_contacto")[0].reset();
+		// $("#form_contacto")[0].reset();
 		$("#btn_guardando").hide();
 		limpiar_campos();
 	});

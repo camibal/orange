@@ -1,5 +1,3 @@
-<?php include "ciudades.php"; ?>
-
 <!-- Modal -->
 <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="modalContactoLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -25,13 +23,7 @@
           <div class="form-group row">
             <label for="ciudad_cuentas_cobro" class="col-sm-3 col-form-label">Ciudad:</label>
             <div class="col-sm-7">
-              <select name="ciudad" class="form-control" id="ciudad_cuentas_cobro">
-                <?php
-                foreach ($citiesOrder as $key => $ciudad) {
-                  echo '<option value="' . $ciudad . '">' . $ciudad . '</option>' . "n";
-                }
-                ?>
-              </select>
+              <?php $cuentasCobro->getCiudades(); ?>
             </div>
             <div class="col-sm-2 text-danger">
               *

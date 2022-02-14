@@ -60,3 +60,19 @@ if ($tipo == 'detalle') {
       return 'No se consulto';
    }
 }
+
+if ($tipo == 'ciudades') {
+   $resultado = $cuentasCobro->consultaCiudades();
+
+   if (isset($resultado)) {
+      echo '<select name="ciudad" class="form-control" id="ciudad_cuentas_cobro">';
+      for ($i = 0; $i < sizeof($resultado); $i++) {
+         echo '<option value="' . $resultado[$i]["nombre"] . '">"' . $resultado[$i]["nombre"] . '"</option>" . "n"';
+      }
+   } else {
+      echo '<div>';
+      echo '<div colspan="9">No existen ingresoss</div>';
+      echo '</div>';
+   }
+   echo '</select>';
+}
