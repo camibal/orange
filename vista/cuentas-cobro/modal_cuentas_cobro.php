@@ -24,7 +24,9 @@
             <label for="ciudad_cuentas_cobro" class="col-sm-3 col-form-label">Ciudad:</label>
             <div class="col-sm-7">
               <!-- select -->
-              <?php $cuentasCobro->getCiudades(); ?>
+              <select name="ciudad" class="form-control" id="ciudad_cuentas_cobro">
+                <?php $cuentasCobro->getCiudades(); ?>
+              </select>
             </div>
             <div class="col-sm-2 text-danger">
               *
