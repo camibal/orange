@@ -23,6 +23,7 @@
           <div class="form-group row">
             <label for="ciudad_cuentas_cobro" class="col-sm-3 col-form-label">Ciudad:</label>
             <div class="col-sm-7">
+              <!-- select -->
               <?php $cuentasCobro->getCiudades(); ?>
             </div>
             <div class="col-sm-2 text-danger">
