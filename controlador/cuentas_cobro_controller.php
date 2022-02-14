@@ -14,7 +14,7 @@ class cuentasCobroController extends cuentasCobro
     //Tabla de cuentas de cobro
     public function getTablaCuentasCobro($permisos, $permisosConsulta)
     {
-        //Instancia del contacto
+        //Instancia de la cuenta de cobro
         $contacto = new cuentasCobro();
         //Lista del menu Nivel 1
         $listaIngresos = $contacto->getCuentasCobro($permisos);
@@ -59,10 +59,10 @@ class cuentasCobroController extends cuentasCobro
             echo '</tr>';
         }
     }
-    //Tabla de cuentas de cobro
+    //Select ciudades
     public function getCiudades()
     {
-        //Instancia del contacto
+        //Instancia de la cuenta de cobro
         $contacto = new cuentasCobro();
         $resultado = $contacto->consultaCiudades();
 
