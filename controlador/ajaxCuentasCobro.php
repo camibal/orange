@@ -14,9 +14,8 @@ $valor  = isset($_REQUEST['valor']) ? $_REQUEST['valor'] : "";
 $concepto  = isset($_REQUEST['concepto']) ? $_REQUEST['concepto'] : "";
 $celular  = isset($_REQUEST['celular']) ? $_REQUEST['celular'] : "";
 $formaspago  = isset($_REQUEST['formas_pago']) ? $_REQUEST['formas_pago'] : "";
-// delete
+// id
 $id  = isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
-// echo $tipo;
 
 if ($tipo == 'consulta') {
    $resultado = $cuentasCobro->consultaCliente($id);
