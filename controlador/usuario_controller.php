@@ -10,15 +10,15 @@ $usuario = new Usuario();
 //Request: Ingresar
 if (isset($_POST['Ingresar'])) {
     if ($usuario->getUserById($_POST['username'])) {
-        // if ($usuario->getPass($_POST['username'], $_POST['passwd'])) {
+        if ($usuario->getPass($_POST['username'], $_POST['passwd'])) {
             $datosUsuario = $usuario->getUserById($_POST['username']);
             session_start(); //Registra la sesion
             $_SESSION['id_usuario'] = $datosUsuario[0]["id_usuario"];
-            //setcookie('id', $datosUsuario[0]["id_usuario"], time() + 365 * 24 * 60 * 60);
+            setcookie('id', $datosUsuario[0]["id_usuario"], time() + 365 * 24 * 60 * 60);
             header('location: ../vista/index.php');
-        // } else {
-        //     header('location: ../vista/login/index.php?pass=false');
-        // }
+        } else {
+            header('location: ../vista/login/index.php?pass=false');
+        }
     } else {
         header('location: ../vista/login/index.php?existe=false');
     }
