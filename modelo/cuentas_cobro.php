@@ -37,17 +37,6 @@ class CuentasCobro
         return $data;
     }
 
-    //Trae todos los permisos
-    public function getPermisosconsulta($permisosConsulta)
-    {
-        $query = "SELECT id_consecutivo, fkCEDULA FROM consecutivo";
-        $result = mysqli_query($this->link, $query);
-        $data   = array();
-        while ($data[] = mysqli_fetch_assoc($result));
-        array_pop($data);
-        return $data;
-    }
-
     //Consultar cuenta de cobro
     public function consultaCliente($id)
     {
