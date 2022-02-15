@@ -73,7 +73,7 @@ class CuentasCobro
     // Gusrdar cuenta de cobro
     public function postConsecutivo($cedula)
     {
-        $query  = "INSERT INTO consecutivo (fkCEDULA,estadoConsecutivo) VALUES ('" . $cedula . "','" . 1 . "')";
+        $query  = "INSERT INTO consecutivo (fkCEDULA) VALUES ('" . $cedula . "')";
         $result = mysqli_query($this->link, $query);
         if (mysqli_affected_rows($this->link) > 0) {
             return true;
