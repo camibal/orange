@@ -12,7 +12,7 @@ class cuentasCobroController extends cuentasCobro
     }
 
     //Tabla de cuentas de cobro
-    public function getTablaCuentasCobro($permisos, $permisosConsulta)
+    public function getTablaCuentasCobro($permisos)
     {
         //Instancia de la cuenta de cobro
         $contacto = new cuentasCobro();

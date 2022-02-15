@@ -4,7 +4,6 @@ session_start();
 $idUsuario       = $_SESSION['id_usuario'];
 $cuentasCobro        = new cuentasCobro();
 $permisos        = $cuentasCobro->getPermisos($idUsuario, 2);
-$permisoconsulta = $cuentasCobro->getPermisosconsulta($idUsuario);
 $cuentasCobro        = new cuentasCobroController();
 ?>
 <div class="row">
@@ -57,7 +56,7 @@ $cuentasCobro        = new cuentasCobroController();
                 </tr>
             </thead>
             <tbody>
-                <?php $cuentasCobro->getTablaCuentasCobro($permisos, $permisoconsulta); ?>
+                <?php $cuentasCobro->getTablaCuentasCobro($permisos); ?>
             </tbody>
         </table>
     </div>
